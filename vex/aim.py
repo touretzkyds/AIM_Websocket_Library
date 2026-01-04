@@ -456,6 +456,7 @@ class WSImageThread(WSThread):
                 try:
                     print(f"{self.ws_name} reconnecting")
                     self.ws.connect(self.uri)
+                    self.start_stream()
                 except:
                     pass # we'll keep trying to reconnect
             else:
