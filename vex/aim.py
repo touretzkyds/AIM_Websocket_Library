@@ -59,6 +59,9 @@ AIVISION_DEFAULT_SNAPSHOT_OBJECTS  =  8
 
 DRIVE_VELOCITY_MAX_MMPS = 200 # millimeters per second
 TURN_VELOCITY_MAX_DPS   = 180 # Degrees per second
+
+INITIAL_IMAGE_TIMEOUT = 5.0 # seconds
+
 class AimException(Exception):
     """VEX AIM Exception Class"""
 
@@ -2120,7 +2123,8 @@ class AiVision():
             start_time = time.time()
             time_elapsed = 0
             self.robot_instance._ws_img_thread.start_stream()
-            while (self.robot_instance._ws_img_thread.image_list[self.robot_instance._ws_img_thread.current_image_index] == bytes(1) and time_elapsed < 0.5):
+            while (self.robot_instance._ws_img_thread.image_list[self.robot_instance._ws_img_thread.current_image_index] == bytes(1) and \
+                   time_elapsed < INITIAL_IMAGE_TIMEOUT):
                 time.sleep(0.01)
                 time_elapsed = time.time() - start_time
         image = self.robot_instance._ws_img_thread.image_list[self.robot_instance._ws_img_thread.current_image_index]
