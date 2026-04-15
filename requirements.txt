@@ -1,3 +1,4 @@
 -e .
 opencv-python
 pyaudio
+websocket-client
